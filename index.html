@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PassForge - 本地生成强密码，不上传服务器" />
+  <title>PassForge - 密码生成器</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon" aria-hidden="true">🔐</span>
+        <h1>PassForge - 密码生成器</h1>
+      </div>
+      <button type="button" id="themeToggle" class="btn-icon" aria-label="切换主题">🌙</button>
+    </header>
+
+    <main class="main">
+      <section class="card password-card" aria-labelledby="password-label">
+        <label id="password-label" class="sr-only">生成的密码</label>
+        <div class="password-display" id="passwordDisplay" tabindex="0" role="textbox" aria-readonly="true">
+          点击「生成密码」开始
+        </div>
+        <div class="password-actions">
+          <button type="button" id="generateBtn" class="btn btn-primary">生成密码</button>
+          <button type="button" id="copyBtn" class="btn btn-secondary" disabled>复制</button>
+          <button type="button" id="regenerateBtn" class="btn btn-ghost" disabled>重新生成</button>
+        </div>
+        <div class="strength" id="strengthBar" aria-live="polite">
+          <div class="strength-track">
+            <div class="strength-fill" id="strengthFill"></div>
+          </div>
+          <span class="strength-label" id="strengthLabel">强度：—</span>
+        </div>
+      </section>
+
+      <section class="card settings-card" aria-labelledby="settings-title">
+        <h2 id="settings-title">生成选项</h2>
+
+        <div class="field">
+          <div class="field-header">
+            <label for="lengthRange">密码长度</label>
+            <input type="number" id="lengthInput" min="4" max="128" value="16" aria-label="密码长度" />
+          </div>
+          <input type="range" id="lengthRange" min="4" max="128" value="16" />
+        </div>
+
+        <fieldset class="checkbox-group">
+          <legend class="sr-only">字符类型</legend>
+          <label class="checkbox"><input type="checkbox" id="uppercase" checked /> 大写字母 A–Z</label>
+          <label class="checkbox"><input type="checkbox" id="lowercase" checked /> 小写字母 a–z</label>
+          <label class="checkbox"><input type="checkbox" id="numbers" checked /> 数字 0–9</label>
+          <label class="checkbox"><input type="checkbox" id="symbols" checked /> 特殊符号</label>
+          <label class="checkbox"><input type="checkbox" id="excludeAmbiguous" /> 排除易混淆字符 (0/O, 1/l/I)</label>
+        </fieldset>
+
+        <div class="field">
+          <div class="field-header">
+            <label for="batchCount">批量生成数量</label>
+            <input type="number" id="batchCount" min="1" max="50" value="1" />
+          </div>
+        </div>
+
+        <button type="button" id="batchGenerateBtn" class="btn btn-secondary btn-block">批量生成</button>
+
+        <ul class="batch-list hidden" id="batchList" aria-label="批量生成的密码列表"></ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>🔒 密码仅在您的浏览器本地生成，不会上传到任何服务器。</p>
+      <p class="footer-sub">PassForge · 开源密码生成工具</p>
+    </footer>
+  </div>
+
+  <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
